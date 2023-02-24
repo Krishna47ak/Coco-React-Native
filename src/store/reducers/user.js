@@ -4,7 +4,8 @@ const initialState = {
     users: [],
     error: null,
     loading: true,
-    toast: null
+    toast: null,
+    status: true
 }
 
 export default function(state = initialState, action) {
@@ -19,12 +20,14 @@ export default function(state = initialState, action) {
         case CONNECTED :
             return {
                 ...state,
-                toast: 'Internet Connected'
+                toast: 'Reload',
+                status: true
             }
         case NOT_CONNECTED :
             return {
                 ...state,
-                toast: 'Internet Disconnected'
+                toast: 'Internet Disconnected',
+                status: false
             }
         case REMOVE_TOAST :
             return {

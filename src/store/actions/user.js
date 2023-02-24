@@ -6,6 +6,7 @@ export const getUsers = () => async dispatch => {
     try {
         const response = await cocoApi.get('/users')
         await AsyncStorage.setItem('users', JSON.stringify(response.data))
+        dispatch({ type: REMOVE_TOAST })
         dispatch({ type: GET_USERS, payload: response.data })
     } catch (err) {
         console.log(err.response.data);
@@ -18,22 +19,19 @@ export const getUsersOffline = () => async dispatch => {
     if (users) {
         dispatch({ type: GET_USERS, payload: JSON.parse(users) })
     }
-
 }
 
 export const checkInternet = (status) => async dispatch => {
     if (status) {
-        dispatch(getUsers())
         dispatch({ type: CONNECTED })
-        setTimeout(() => {
-            dispatch({ type: REMOVE_TOAST })
-        }, 2000);
     } else {
         dispatch({ type: NOT_CONNECTED })
         setTimeout(() => {
             dispatch({ type: REMOVE_TOAST })
         }, 2000);
     }
-
 }
 
+export const removeToast = () => dispatch => {
+    dispatch({ type: REMOVE_TOAST })
+}

@@ -27,6 +27,7 @@ const ListNames = ({ getUsers, profiles: { users, loading } }) => {
         <FlatList
             data={users}
             keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
                 const color = colors[Math.floor(Math.random() * (colors.length - 1))]
                 return (
