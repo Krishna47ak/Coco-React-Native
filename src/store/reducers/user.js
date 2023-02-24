@@ -1,9 +1,10 @@
-import { GET_USERS } from "../types";
+import { CONNECTED, GET_USERS, NOT_CONNECTED, REMOVE_TOAST } from "../types";
 
 const initialState = {
     users: [],
     error: null,
-    loading: true
+    loading: true,
+    toast: null
 }
 
 export default function(state = initialState, action) {
@@ -14,6 +15,21 @@ export default function(state = initialState, action) {
                 ...state,
                 users: payload,
                 loading: false
+            }
+        case CONNECTED :
+            return {
+                ...state,
+                toast: 'Internet Connected'
+            }
+        case NOT_CONNECTED :
+            return {
+                ...state,
+                toast: 'Internet Disconnected'
+            }
+        case REMOVE_TOAST :
+            return {
+                ...state,
+                toast: null
             }
         default:
             return state

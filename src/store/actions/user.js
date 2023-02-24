@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import cocoApi from '../../api/cocoApi'
-import { ADD_ERROR, GET_USERS } from "../types";
+import { GET_USERS, CONNECTED, NOT_CONNECTED, REMOVE_TOAST } from "../types";
 
 export const getUsers = () => async dispatch => {
     try {
@@ -14,9 +14,26 @@ export const getUsers = () => async dispatch => {
 
 export const getUsersOffline = () => async dispatch => {
     const users = await AsyncStorage.getItem('users')
-    
+
     if (users) {
         dispatch({ type: GET_USERS, payload: JSON.parse(users) })
     }
 
 }
+
+export const checkInternet = (status) => async dispatch => {
+    if (status) {
+        dispatch(getUsers())
+        dispatch({ type: CONNECTED })
+        setTimeout(() => {
+            dispatch({ type: REMOVE_TOAST })
+        }, 2000);
+    } else {
+        dispatch({ type: NOT_CONNECTED })
+        setTimeout(() => {
+            dispatch({ type: REMOVE_TOAST })
+        }, 2000);
+    }
+
+}
+
