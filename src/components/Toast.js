@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { Text, TouchableOpacity, View } from 'react-native'
 import PropTypes from 'prop-types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { getUsers, removeToast } from '../store/actions/user';
+import { getUsers } from '../store/actions/user';
 
-const Toast = ({ toast, status, getUsers, removeToast }) => {
+const Toast = ({ toast, status, getUsers }) => {
 
     if (toast === null) {
         return
@@ -17,7 +17,7 @@ const Toast = ({ toast, status, getUsers, removeToast }) => {
                     <Text> {toast}</Text >
                 </View >
             ) :
-                <TouchableOpacity className='flex-row items-center space-x-2 bg-[#93c5fd80] px-5 py-2 rounded-3xl z-10 absolute bottom-32 ' onPress={() => (getUsers(), removeToast())} >
+                <TouchableOpacity className='flex-row items-center space-x-2 bg-[#93c5fd80] px-5 py-2 rounded-3xl z-10 absolute bottom-32 ' onPress={() => (getUsers())} >
                     <MaterialCommunityIcons name="reload" size={24} color="black" />
                     <Text> {toast}</Text >
                 </TouchableOpacity>}
@@ -28,8 +28,7 @@ const Toast = ({ toast, status, getUsers, removeToast }) => {
 Toast.propTypes = {
     toast: PropTypes.string,
     status: PropTypes.bool.isRequired,
-    getUsers: PropTypes.func.isRequired,
-    removeToast: PropTypes.func.isRequired
+    getUsers: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -37,4 +36,4 @@ const mapStateToProps = state => ({
     status: state.user.status
 })
 
-export default connect(mapStateToProps, { getUsers, removeToast })(Toast)
+export default connect(mapStateToProps, { getUsers })(Toast)

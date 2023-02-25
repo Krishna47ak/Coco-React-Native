@@ -31,7 +31,3 @@ export const checkInternet = (status) => async dispatch => {
         }, 2000);
     }
 }
-
-export const removeToast = () => dispatch => {
-    dispatch({ type: REMOVE_TOAST })
-}
