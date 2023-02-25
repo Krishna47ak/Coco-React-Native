@@ -1,31 +1,19 @@
 import { connect } from 'react-redux';
 import { Text, TouchableOpacity, View } from 'react-native'
 import PropTypes from 'prop-types';
-import NetInfo from "@react-native-community/netinfo";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { getUsers, removeToast, checkInternet } from '../store/actions/user';
-import { useEffect } from 'react';
+import { getUsers, removeToast } from '../store/actions/user';
 
-const Toast = ({ toast, status, getUsers, removeToast, checkInternet }) => {
+const Toast = ({ toast, status, getUsers, removeToast }) => {
 
-    useEffect(() => {
-        const unsubscribe = NetInfo.addEventListener(state => {
-            checkInternet(state.isConnected)
-        });
-
-        return () => {
-            unsubscribe();
-        }
-    },[])
-
-    if (toast === null ) {
+    if (toast === null) {
         return
     }
 
     return (
         <>
             {!status ? (
-                <View className='bg-[#d1d5db80] px-5 py-2 rounded-3xl bg-opacity-50 absolute bottom-32 '>
+                <View className='bg-[#d1d5db80] px-5 py-2 rounded-3xl bg-opacity-50 z-10 absolute bottom-32 '>
                     <Text> {toast}</Text >
                 </View >
             ) :
@@ -41,8 +29,7 @@ Toast.propTypes = {
     toast: PropTypes.string,
     status: PropTypes.bool.isRequired,
     getUsers: PropTypes.func.isRequired,
-    removeToast: PropTypes.func.isRequired,
-    checkInternet: PropTypes.func.isRequired
+    removeToast: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -50,4 +37,4 @@ const mapStateToProps = state => ({
     status: state.user.status
 })
 
-export default connect(mapStateToProps, { getUsers, removeToast, checkInternet })(Toast)
+export default connect(mapStateToProps, { getUsers, removeToast })(Toast)

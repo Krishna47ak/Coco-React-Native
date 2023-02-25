@@ -9,7 +9,7 @@ export const getUsers = () => async dispatch => {
         dispatch({ type: REMOVE_TOAST })
         dispatch({ type: GET_USERS, payload: response.data })
     } catch (err) {
-        console.log(err.response.data);
+        console.log(err);
     }
 }
 
